@@ -47,21 +47,7 @@ public class PersonServiceImpl implements PersonService {
     public boolean speichern(final Person person) throws PersonenServiceException {
 
         try {
-            if(person == null)
-                throw new PersonenServiceException("Person ist null");
-
-            if(person.getVorname() == null || person.getVorname().length() < 2)
-                throw new PersonenServiceException("Vorname zu kurz");
-
-            if(person.getNachname() == null || person.getNachname().length() < 2)
-                throw new PersonenServiceException("Nachname zu kurz");
-
-            if("Attila".equals(person.getVorname()))
-                throw new PersonenServiceException("Antipath!");
-
-            personRepository.save(personMapper.convert(person));
-
-            return false;
+            return speichernImpl(person);
         } catch (RuntimeException e) {
             throw new PersonenServiceException("Ein Fehler ist aufgetreten",e);
         }
@@ -69,6 +55,23 @@ public class PersonServiceImpl implements PersonService {
 
     }
 
+    private boolean speichernImpl(final Person person) throws PersonenServiceException {
+        if(person == null)
+            throw new PersonenServiceException("Person ist null");
+
+        if(person.getVorname() == null || person.getVorname().length() < 2)
+            throw new PersonenServiceException("Vorname zu kurz");
+
+        if(person.getNachname() == null || person.getNachname().length() < 2)
+            throw new PersonenServiceException("Nachname zu kurz");
+
+        if("Attila".equals(person.getVorname()))
+            throw new PersonenServiceException("Antipath!");
+
+        personRepository.save(personMapper.convert(person));
+
+        return false;
+    }
 
 
     @Override

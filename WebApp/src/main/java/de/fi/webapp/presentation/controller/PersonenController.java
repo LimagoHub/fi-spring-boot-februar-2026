@@ -1,11 +1,10 @@
-package de.fi.webapp.presentation;
+package de.fi.webapp.presentation.controller;
 
 
 import de.fi.webapp.presentation.dto.PersonDto;
 import de.fi.webapp.presentation.mapper.PersonDTOMapper;
 import de.fi.webapp.service.PersonService;
 import de.fi.webapp.service.PersonenServiceException;
-import de.fi.webapp.service.mapper.PersonMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
