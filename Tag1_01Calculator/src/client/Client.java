@@ -11,6 +11,6 @@ public class Client {
     }
 
     public void go() {
-        System.out.println(calc.add(1, 2));
+        System.out.println(calc.sub(1, 2));
     }
 }

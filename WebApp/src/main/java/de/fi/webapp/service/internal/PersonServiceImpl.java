@@ -2,10 +2,12 @@ package de.fi.webapp.service.internal;
 
 import de.fi.webapp.persistence.entity.PersonenRepository;
 
+import de.fi.webapp.service.BlacklistService;
 import de.fi.webapp.service.PersonService;
 import de.fi.webapp.service.PersonenServiceException;
 import de.fi.webapp.service.mapper.PersonMapper;
 import de.fi.webapp.service.model.Person;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -16,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@Service
+//@Service
 @Transactional(rollbackFor = PersonenServiceException.class, propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
 public class PersonServiceImpl implements PersonService {
 
@@ -24,13 +26,14 @@ public class PersonServiceImpl implements PersonService {
     private final PersonenRepository personRepository;
     private final PersonMapper personMapper;
 
-    public PersonServiceImpl(final PersonenRepository personRepository, final PersonMapper personMapper) {
+    private final List<String> antipathen;
+
+    public PersonServiceImpl(final PersonenRepository personRepository, final PersonMapper personMapper, final List<String> antipathen) {
         this.personRepository = personRepository;
         this.personMapper = personMapper;
+        this.antipathen = antipathen;
     }
-
-
-    /*
+/*
                 person == null -> PSE
                 vorname == null oder zu kurz ->PSE
                 nachname dito
@@ -65,7 +68,7 @@ public class PersonServiceImpl implements PersonService {
         if(person.getNachname() == null || person.getNachname().length() < 2)
             throw new PersonenServiceException("Nachname zu kurz");
 
-        if("Attila".equals(person.getVorname()))
+        if(antipathen.contains(person.getVorname()))
             throw new PersonenServiceException("Antipath!");
 
         personRepository.save(personMapper.convert(person));
