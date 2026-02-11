@@ -14,14 +14,16 @@ public class MyAspect {
 
     private static Logger logger = Logger.getLogger(MyAspect.class.getName());
 
-    @Before( "execution(public * de.fi.webapp.presentation.controller.PersonenController.*(..))")
+
+
+    @Before( "PointCuts.dozentMethods()")
     public void beforeAdvice(JoinPoint joinPoint) {
         logger.warning( String.format(
                 "##################### Methode  %s wurde aufgerufen ########################"
                 , joinPoint.getSignature().getName()));
     }
 
-    @AfterReturning( value = "execution(public * de.fi.webapp.presentation.controller.PersonenController.*(..))", returning = "result")
+    @AfterReturning( value = "PointCuts.personenControllerMethods()", returning = "result")
     public void afterReturningAdvice(JoinPoint joinPoint, Object result) {
         logger.warning(String.format("############################# Afterreturning: %s ######################", joinPoint.getSignature().getName()));
         logger.warning(String.format("############################# Result: %s ######################", result.toString()));
@@ -30,6 +32,7 @@ public class MyAspect {
 
     @AfterThrowing(value="execution(public * de.fi.webapp.presentation.controller.PersonenController.*(..))", throwing = "ex")
     public void afterThrowing(final JoinPoint joinPoint, Throwable ex) {
+
 
         logger.warning(String.format("############################# Afterreturning: %s ######################", joinPoint.getSignature().getName()));
         logger.warning(String.format("############################# Exception: %s ######################", ex.toString()));

@@ -60,7 +60,7 @@ public class PersonServiceImpl implements PersonService {
 
     private boolean speichernImpl(final Person person) throws PersonenServiceException {
         if(person == null)
-            throw new PersonenServiceException("Person ist null");
+            throw new PersonenServiceException("Parameter darf nicht null sein");
 
         if(person.getVorname() == null || person.getVorname().length() < 2)
             throw new PersonenServiceException("Vorname zu kurz");

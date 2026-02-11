@@ -1,6 +1,7 @@
 package de.fi.webapp.presentation.controller;
 
 
+import de.fi.webapp.aspects.Dozent;
 import de.fi.webapp.presentation.dto.PersonDto;
 import de.fi.webapp.presentation.mapper.PersonDTOMapper;
 import de.fi.webapp.service.PersonService;
@@ -21,7 +22,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/v1/personen")
-
+@Dozent
 //@SessionScope
 public class PersonenController {
 
