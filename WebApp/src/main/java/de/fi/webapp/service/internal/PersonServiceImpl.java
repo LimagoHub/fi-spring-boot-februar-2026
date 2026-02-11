@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-//@Service
+@Service
 @Transactional(rollbackFor = PersonenServiceException.class, propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
 public class PersonServiceImpl implements PersonService {
 
@@ -28,7 +28,7 @@ public class PersonServiceImpl implements PersonService {
 
     private final List<String> antipathen;
 
-    public PersonServiceImpl(final PersonenRepository personRepository, final PersonMapper personMapper, final List<String> antipathen) {
+    public PersonServiceImpl(final PersonenRepository personRepository, final PersonMapper personMapper, @Qualifier("antipathen") final List<String> antipathen) {
         this.personRepository = personRepository;
         this.personMapper = personMapper;
         this.antipathen = antipathen;
